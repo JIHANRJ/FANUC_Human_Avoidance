@@ -1,0 +1,40 @@
+# ROS 2 / colcon build products
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Runtime captures and generated data
+*.bag
+*.db3
+*.mcap
+*.avi
+*.mp4
+*.png
+*.jpg
+*.jpeg
+
+# Local robot/camera configuration overrides
+*.local.yaml
+*.local.yml
+*.local.json
