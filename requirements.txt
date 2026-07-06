@@ -1,0 +1,4 @@
+numpy
+opencv-contrib-python
+mediapipe==0.10.21
+pyrealsense2
