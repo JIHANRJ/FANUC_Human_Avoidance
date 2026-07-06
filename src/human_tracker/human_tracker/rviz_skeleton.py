@@ -5,6 +5,8 @@ import math
 import numpy as np
 import rclpy
 from geometry_msgs.msg import Point
+from geometry_msgs.msg import Pose
+from geometry_msgs.msg import PoseArray
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy
 from rclpy.qos import HistoryPolicy
@@ -31,12 +33,22 @@ class SkeletonPublisher(Node):
             "/human_markers",
             qos,
         )
+        self.pose_publisher = self.create_publisher(
+            PoseArray,
+            "/human_pose",
+            qos,
+        )
 
         self.publish_count = 0
         self.last_debug_time = self.get_clock().now()
 
     def publish_points(self, pose_3d, connections=None):
         markers = MarkerArray()
+
+        pose_array = PoseArray()
+
+        pose_array.header.frame_id = "camera_link"
+        pose_array.header.stamp = self.get_clock().now().to_msg()
 
         valid_count = 0
         line_count = 0
@@ -61,6 +73,16 @@ class SkeletonPublisher(Node):
             marker.pose.position.y = float(point[1])
             marker.pose.position.z = float(point[2])
             marker.pose.orientation.w = 1.0
+
+            pose = Pose()
+
+            pose.position.x = float(point[0])
+            pose.position.y = float(point[1])
+            pose.position.z = float(point[2])
+
+            pose.orientation.w = 1.0
+
+            pose_array.poses.append(pose)
 
             marker.scale.x = 0.025
             marker.scale.y = 0.025
@@ -119,6 +141,7 @@ class SkeletonPublisher(Node):
         markers.markers.append(line_marker)
 
         self.publisher.publish(markers)
+        self.pose_publisher.publish(pose_array)
         self.publish_count += 1
 
         now = self.get_clock().now()
