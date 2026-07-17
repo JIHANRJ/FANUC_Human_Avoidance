@@ -2,7 +2,10 @@
 
 ROS 2 Jazzy workspace for visualizing a MediaPipe human skeleton from an Intel RealSense D456 in RViz alongside a FANUC CRX-10iA/L robot.
 
+**Sample execution and output video** are attched in the Release!
+
 The current human-tracking path publishes RViz `visualization_msgs/MarkerArray` messages on `/human_markers`. Landmarks are red spheres and MediaPipe pose connections are white `LINE_LIST` segments in the `camera_link` frame.
+
 
 ## Workspace Contents
 

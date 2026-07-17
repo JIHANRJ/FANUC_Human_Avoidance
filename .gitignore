@@ -38,3 +38,4 @@ env/
 *.local.yaml
 *.local.yml
 *.local.json
+ROS2_Avoidance.webm
